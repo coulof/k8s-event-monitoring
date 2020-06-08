@@ -1,0 +1,11 @@
+name: k8s-events-reporting
+version: 1.0.0
+appVersion: 1.0.0
+description: |
+  Kubernetes events reporting
+keywords:
+- monitoring
+- elastic
+- kibana
+- event-exporter 
+engine: gotpl

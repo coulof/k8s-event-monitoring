@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-exporter
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: event-exporter
+        version: v1
+    spec:
+      serviceAccountName: event-exporter
+      initContainers:
+      - name: config
+        image: "ruby:2.7-slim"
+        command: ['sh', '-c', 'erb /tmpl/config.yaml.erb > /data/config.yaml']
+        volumeMounts:
+          - name: cfgtmpl
+            mountPath: /tmpl
+          - name: configdir
+            mountPath: /data
+        env:
+          - name: ES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-es-elastic-user
+                key: elastic
+      containers:
+        - name: event-exporter
+          image: opsgenie/kubernetes-event-exporter:0.7
+          imagePullPolicy: IfNotPresent
+          args:
+            - -conf=/data/config.yaml
+          volumeMounts:
+            - mountPath: /data
+              name: configdir
+      volumes:
+        - name: cfgtmpl
+          configMap:
+            name: event-exporter-cfg
+        - name: configdir
+          emptyDir: {}
+  selector:
+    matchLabels:
+      app: event-exporter
+      version: v1
