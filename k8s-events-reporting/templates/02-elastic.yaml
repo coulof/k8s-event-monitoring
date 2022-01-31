@@ -5,14 +5,11 @@ metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
 spec:
-  version: 7.7.0
+  version: 7.16.3
   nodeSets:
   - name: default
     count: 1
     config:
-      node.master: true
-      node.data: true
-      node.ingest: true
       node.store.allow_mmap: false
     volumeClaimTemplates:
     - metadata:
@@ -23,7 +20,7 @@ spec:
         resources:
           requests:
             storage: 15Gi
-        storageClassName: vxflexos
+        storageClassName: powerflex
 ---
 apiVersion: kibana.k8s.elastic.co/v1
 kind: Kibana
@@ -31,7 +28,7 @@ metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
 spec:
-  version: 7.7.0
+  version: 7.16.3
   count: 1
   elasticsearchRef:
     name: {{ .Release.Name }}

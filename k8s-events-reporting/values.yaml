@@ -1,1 +1,4 @@
-namespace: default
+images:
+ ruby: gcr.io/devcon-anthos/ruby:2.7-slim
+ # Latest version miss some events cf. https://github.com/opsgenie/kubernetes-event-exporter/issues/163
+ eventexporter: gcr.io/devcon-anthos/opsgenie/kubernetes-event-exporter:0.9

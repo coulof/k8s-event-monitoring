@@ -15,7 +15,7 @@ spec:
       serviceAccountName: event-exporter
       initContainers:
       - name: config
-        image: "ruby:2.7-slim"
+        image: {{ .Values.images.ruby }}
         command: ['sh', '-c', 'erb /tmpl/config.yaml.erb > /data/config.yaml']
         volumeMounts:
           - name: cfgtmpl
@@ -30,7 +30,7 @@ spec:
                 key: elastic
       containers:
         - name: event-exporter
-          image: opsgenie/kubernetes-event-exporter:0.7
+          image: {{ .Values.images.eventexporter }}
           imagePullPolicy: IfNotPresent
           args:
             - -conf=/data/config.yaml

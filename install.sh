@@ -7,4 +7,4 @@ if [ $? -ne 0 ];
 fi
 
 #helm template demo --namespace $NS k8s-events-reporting/
-helm install --name-template demo --namespace $NS ./k8s-events-reporting
+helm install --name-template benchmark --namespace $NS ./k8s-events-reporting
