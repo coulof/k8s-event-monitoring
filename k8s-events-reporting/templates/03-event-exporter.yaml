@@ -30,7 +30,7 @@ spec:
                 key: elastic
       containers:
         - name: event-exporter
-          image: opsgenie/kubernetes-event-exporter:0.7
+          image: opsgenie/kubernetes-event-exporter:0.9
           imagePullPolicy: IfNotPresent
           args:
             - -conf=/data/config.yaml

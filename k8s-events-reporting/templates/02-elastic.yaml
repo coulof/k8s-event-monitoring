@@ -5,7 +5,7 @@ metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
 spec:
-  version: 7.7.0
+  version: 7.12.1
   nodeSets:
   - name: default
     count: 1
@@ -23,7 +23,7 @@ spec:
         resources:
           requests:
             storage: 15Gi
-        storageClassName: vxflexos
+        storageClassName: powerstore-xfs
 ---
 apiVersion: kibana.k8s.elastic.co/v1
 kind: Kibana
@@ -31,7 +31,7 @@ metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
 spec:
-  version: 7.7.0
+  version: 7.12.1
   count: 1
   elasticsearchRef:
     name: {{ .Release.Name }}
